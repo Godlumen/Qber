@@ -4,10 +4,7 @@ import com.godlumen.model.SysPermission;
 import com.godlumen.model.SysRole;
 import com.godlumen.model.UserLogin;
 import com.godlumen.service.UserLoginService;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -38,8 +35,11 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
         System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
-        //获取用户的输入的mobile.
-        String mobile = (String) token.getPrincipal();
+//        UsernamePasswordToken token=(UsernamePasswordToken) authcToken;
+//        String mobile=token.getUsername();
+//        String password=String.valueOf(token.getPassword());
+        //获取用户的输入的账号.
+        String mobile = (String)token.getPrincipal();
         System.out.println(token.getCredentials());
         //通过mobile从数据库中查找 UserLogin对象，如果找到，没找到.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
