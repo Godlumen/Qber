@@ -31,13 +31,11 @@ public class UserLoginController {
         return "/index";
     }
 
-    @RequestMapping(value = "/login")
-    public String userLogin(HttpServletRequest request, Map<String, Object> map) throws Exception{
-        String mobile=(String)request.getAttribute("mobile");
-        String password=(String) request.getAttribute("password");
-        Boolean rememberMe=(Boolean) request.getAttribute("rememberMe");
-        UsernamePasswordToken token=new UsernamePasswordToken(mobile,password,rememberMe);
-        SecurityUtils.getSubject().login(token);
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception{
+        System.out.println("HomeController.login()");
+        // 登录失败从request中获取shiro处理的异常信息。
+        // shiroLoginFailure:就是shiro异常类的全类名.
         String exception = (String) request.getAttribute("shiroLoginFailure");
         System.out.println("exception=" + exception);
         String msg = "";
